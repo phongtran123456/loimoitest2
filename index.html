@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thi có muốn đi đâu với tui hog :3</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="container">
+    <!-- BƯỚC 1: LỜI MỜI -->
+    <section id="step-1" class="card active">
+      <div class="tag">Một lời mời nho nhỏ</div>
+      <div class="envelope-icon">💌</div>
+      <h1><span>Thi có muốn</span> <em>đi đâu với tui hog :3</em></h1>
+      <p class="subtitle">Để một ngày bình thường trở nên đáng nhớ hơn.</p>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="goToStep(2)">Đi luôn thôii! 💕</button>
+        <button class="btn btn-secondary" id="btn-no" onmouseover="moveNoButton()">Để suy nghĩ đã 🙈</button>
+      </div>
+      <p class="footer-note">Một cuộc hẹn, nhiều niềm vui.</p>
+    </section>
+
+    <!-- BƯỚC 2: CHỌN LỊCH HẸN -->
+    <section id="step-2" class="card">
+      <div class="header-step">
+        <span class="tag">Bước 2 trên 3</span>
+      </div>
+      <h2><span>Vậy mình</span> <em>hẹn nhau nhé.</em></h2>
+      <p class="subtitle">Thi chọn thời gian, mình chọn niềm vui.</p>
+
+      <form id="invite-form" onsubmit="handleFormSubmit(event)">
+        <div class="form-group">
+          <label for="date">📅 Ngày hẹn</label>
+          <input type="date" id="date" required>
+        </div>
+
+        <div class="form-group">
+          <label for="time">⏰ Vào lúc</label>
+          <input type="time" id="time" required>
+        </div>
+
+        <div class="form-group">
+          <label for="activity">✨ Mình sẽ</label>
+          <select id="activity" required>
+            <option value="">-- Chọn hoạt động --</option>
+            <option value="Đi uống cà phê & trò chuyện ☕">Đi uống cà phê & trò chuyện ☕</option>
+            <option value="Đi xem phim rạp 🎬">Đi xem phim rạp 🎬</option>
+            <option value="Đi ăn đồ ngon 🍕">Đi ăn đồ ngon 🍕</option>
+            <option value="Lượn phố hóng gió 🛵">Lượn phố hóng gió 🛵</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Xác nhận hẹn nè 🎉</button>
+      </form>
+    </section>
+
+    <!-- BƯỚC 3: MÀN HÌNH CHỐT LỊCH -->
+    <section id="step-3" class="card">
+      <div class="header-step">
+        <span class="tag">Lời hẹn của chúng mình</span>
+        <span class="step-indicator">Bước 3 trên 3</span>
+      </div>
+      <div class="envelope-icon">🥳</div>
+      <h2><span>Có hẹn rồi,</span> <em>vui quá!</em></h2>
+      <p class="subtitle">Giữ một khoảng nhỏ trong ngày cho nhau.</p>
+
+      <dl class="summary-box">
+        <div class="summary-item">
+          <dt>Ngày hẹn</dt>
+          <dd id="res-date">-</dd>
+        </div>
+        <div class="summary-item">
+          <dt>Vào lúc</dt>
+          <dd id="res-time">-</dd>
+        </div>
+        <div class="summary-item">
+          <dt>Mình sẽ</dt>
+          <dd id="res-activity">-</dd>
+        </div>
+      </dl>
+
+      <p class="footer-note">Lịch hẹn chỉ hiển thị tại đây, chụp màn hình gửi tui nhé! 📸</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
