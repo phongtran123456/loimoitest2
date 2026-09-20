@@ -31,9 +31,7 @@ body {
   text-align: center;
   display: none;
   animation: fadeIn 0.3s ease-in-out;
-  position: relative; /* Bắt buộc để giữ nút nằm hoàn toàn bên trong */
-  overflow: hidden;   /* Ngăn tuyệt đối nút chạy tràn ra ngoài */
-  min-height: 440px;
+  position: relative;
 }
 
 .card.active {
@@ -81,12 +79,15 @@ h1 em, h2 em {
   margin-bottom: 20px;
 }
 
-/* ĐỊNH VỊ CỐ ĐỊNH BAN ĐẦU DÀNH CHO 2 NÚT */
+/* KHU VỰC CHỨA 2 NÚT DÀNH CHO BƯỚC 1 */
 .actions-area {
   position: relative;
-  height: 60px;
-  width: 100%;
-  margin-top: 15px;
+  min-height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .btn {
@@ -97,39 +98,29 @@ h1 em, h2 em {
   font-weight: 700;
   font-size: 15px;
   cursor: pointer;
+  transition: transform 0.1s ease;
   user-select: none;
-  white-space: nowrap;
 }
 
-/* Nút "Đi luôn thôii!" khóa cứng bên trái */
-#btn-yes {
-  position: absolute;
-  left: 20px;
-  top: 6px;
+.btn-primary {
   background-color: #f43f5e;
   color: white;
   box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);
   z-index: 2;
 }
 
-/* Nút "Để suy nghĩ đã" nằm bên phải */
-#btn-no {
-  position: absolute;
-  right: 20px;
-  top: 6px;
+.btn-secondary {
   background-color: #f3f4f6;
   color: #4b5563;
   z-index: 10;
-  transition: top 0.15s ease, left 0.15s ease;
+  position: relative;
+  transition: all 0.15s ease-out;
 }
 
 .btn-block {
-  position: static !important;
   width: 100%;
   margin-top: 12px;
   padding: 14px;
-  background-color: #f43f5e;
-  color: white;
 }
 
 .form-group {
@@ -163,6 +154,7 @@ h1 em, h2 em {
   background-color: #fff;
 }
 
+/* CHECKBOX PHONG CÁCH NÚT CHIP */
 .checkbox-group {
   display: flex;
   flex-wrap: wrap;
