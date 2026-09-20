@@ -2,33 +2,34 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Thi có muốn đi đâu với tui hog :3</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <main class="container">
-    <!-- BƯỚC 1: LỜI MỜI -->
+    <!-- BƯỚC 1: MỞ LỜI -->
     <section id="step-1" class="card active">
-      <div class="tag">Một lời mời nho nhỏ</div>
-      <div class="envelope-icon">💌</div>
+      <div class="tag">Một lời mời nho nhỏ 💌</div>
+      <div class="envelope-icon">✨</div>
       <h1><span>Thi có muốn</span> <em>đi đâu với tui hog :3</em></h1>
       <p class="subtitle">Để một ngày bình thường trở nên đáng nhớ hơn.</p>
-      <div class="actions">
+      
+      <div class="actions-area">
         <button class="btn btn-primary" onclick="goToStep(2)">Đi luôn thôii! 💕</button>
-        <button class="btn btn-secondary" id="btn-no" onmouseover="moveNoButton()">Để suy nghĩ đã 🙈</button>
+        <button class="btn btn-secondary" id="btn-no">Để suy nghĩ đã 🙈</button>
       </div>
       <p class="footer-note">Một cuộc hẹn, nhiều niềm vui.</p>
     </section>
 
-    <!-- BƯỚC 2: CHỌN LỊCH HẸN -->
+    <!-- BƯỚC 2: CHỌN LỊCH HẸN & HOẠT ĐỘNG -->
     <section id="step-2" class="card">
       <div class="header-step">
         <span class="tag">Bước 2 trên 3</span>
       </div>
       <h2><span>Vậy mình</span> <em>hẹn nhau nhé.</em></h2>
-      <p class="subtitle">Thi chọn thời gian, mình chọn niềm vui.</p>
+      <p class="subtitle">Thi chọn thời gian & những việc mình sẽ làm cùng nhau nha!</p>
 
       <form id="invite-form" onsubmit="handleFormSubmit(event)">
         <div class="form-group">
@@ -42,15 +43,41 @@
         </div>
 
         <div class="form-group">
-          <label for="activity">✨ Mình sẽ</label>
-          <select id="activity" required>
-            <option value="">-- Chọn hoạt động --</option>
-            <option value="Đi uống cà phê & trò chuyện ☕">Đi uống cà phê & trò chuyện ☕</option>
-            <option value="Đi xem phim rạp 🎬">Đi xem phim rạp 🎬</option>
-            <option value="Đi ăn đồ ngon 🍕">Đi ăn đồ ngon 🍕</option>
-            <option value="Lượn phố hóng gió 🛵">Lượn phố hóng gió 🛵</option>
-          </select>
+          <label>✨ Mình sẽ làm gì nè? (Có thể chọn nhiều option)</label>
+          <div class="checkbox-group">
+            <label class="chip-checkbox">
+              <input type="checkbox" name="activity" value="Ra thư viện 📚">
+              <span>Ra thư viện 📚</span>
+            </label>
+            <label class="chip-checkbox">
+              <input type="checkbox" name="activity" value="Uống cà phê ☕">
+              <span>Uống cà phê ☕</span>
+            </label>
+            <label class="chip-checkbox">
+              <input type="checkbox" name="activity" value="Cùng học bài 📖">
+              <span>Cùng học bài 📖</span>
+            </label>
+            <label class="chip-checkbox">
+              <input type="checkbox" name="activity" value="Đi xem phim 🎬">
+              <span>Đi xem phim 🎬</span>
+            </label>
+            <label class="chip-checkbox">
+              <input type="checkbox" name="activity" value="Đi ăn đồ ngon 🍕">
+              <span>Đi ăn đồ ngon 🍕</span>
+            </label>
+            <label class="chip-checkbox">
+              <input type="checkbox" name="activity" value="Đi hóng gió 🛵">
+              <span>Lượn phố hóng gió 🛵</span>
+            </label>
+          </div>
         </div>
+
+        <div class="form-group">
+          <label for="other-activity">✏️ Hoạt động khác (nếu có):</label>
+          <input type="text" id="other-activity" placeholder="Nhập thêm ý tưởng của Thi vào đây...">
+        </div>
+
+        <p id="error-msg" class="error-text"></p>
 
         <button type="submit" class="btn btn-primary btn-block">Xác nhận hẹn nè 🎉</button>
       </form>
@@ -59,8 +86,7 @@
     <!-- BƯỚC 3: MÀN HÌNH CHỐT LỊCH -->
     <section id="step-3" class="card">
       <div class="header-step">
-        <span class="tag">Lời hẹn của chúng mình</span>
-        <span class="step-indicator">Bước 3 trên 3</span>
+        <span class="tag">Lời hẹn của chúng mình ✨</span>
       </div>
       <div class="envelope-icon">🥳</div>
       <h2><span>Có hẹn rồi,</span> <em>vui quá!</em></h2>
@@ -81,7 +107,7 @@
         </div>
       </dl>
 
-      <p class="footer-note">Lịch hẹn chỉ hiển thị tại đây, chụp màn hình gửi tui nhé! 📸</p>
+      <p class="footer-note">Chụp màn hình lại rồi gửi cho tui nha! 📸</p>
     </section>
   </main>
 
