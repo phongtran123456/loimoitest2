@@ -2,6 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  touch-action: manipulation;
 }
 
 body {
@@ -11,23 +12,26 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 16px;
   color: #4a4a4a;
+  overflow-x: hidden;
 }
 
 .container {
   width: 100%;
   max-width: 440px;
+  position: relative;
 }
 
 .card {
   background: #ffffff;
   border-radius: 24px;
-  padding: 32px 24px;
+  padding: 28px 20px;
   box-shadow: 0 10px 30px rgba(244, 63, 94, 0.12);
   text-align: center;
   display: none;
-  animation: fadeIn 0.4s ease-in-out;
+  animation: fadeIn 0.3s ease-in-out;
+  position: relative;
 }
 
 .card.active {
@@ -35,7 +39,7 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -47,18 +51,18 @@ body {
   font-weight: 700;
   padding: 6px 14px;
   border-radius: 20px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .envelope-icon {
-  font-size: 64px;
-  margin: 12px 0;
+  font-size: 56px;
+  margin: 8px 0;
 }
 
 h1, h2 {
-  font-size: 24px;
+  font-size: 22px;
   color: #1f2937;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 h1 em, h2 em {
@@ -72,47 +76,51 @@ h1 em, h2 em {
 .subtitle {
   font-size: 14px;
   color: #6b7280;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
-.actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  margin-bottom: 20px;
+/* KHU VỰC CHỨA 2 NÚT DÀNH CHO BƯỚC 1 */
+.actions-area {
   position: relative;
-  min-height: 50px;
+  min-height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .btn {
   border: none;
   padding: 12px 20px;
-  border-radius: 12px;
+  border-radius: 14px;
   font-family: inherit;
   font-weight: 700;
   font-size: 15px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.1s ease;
+  user-select: none;
 }
 
 .btn-primary {
   background-color: #f43f5e;
   color: white;
-}
-
-.btn-primary:hover {
-  background-color: #e11d48;
-  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);
+  z-index: 2;
 }
 
 .btn-secondary {
   background-color: #f3f4f6;
   color: #4b5563;
+  z-index: 10;
+  position: relative;
+  transition: all 0.15s ease-out;
 }
 
 .btn-block {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 12px;
+  padding: 14px;
 }
 
 .form-group {
@@ -122,23 +130,60 @@ h1 em, h2 em {
 
 .form-group label {
   display: block;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
   color: #374151;
 }
 
-.form-group input, .form-group select {
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group input[type="text"] {
   width: 100%;
   padding: 12px;
   border: 2px solid #f3f4f6;
-  border-radius: 10px;
+  border-radius: 12px;
   font-family: inherit;
   font-size: 14px;
   outline: none;
+  background-color: #fafafa;
 }
 
-.form-group input:focus, .form-group select:focus {
+.form-group input:focus {
+  border-color: #f43f5e;
+  background-color: #fff;
+}
+
+/* CHECKBOX PHONG CÁCH NÚT CHIP */
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip-checkbox {
+  cursor: pointer;
+}
+
+.chip-checkbox input {
+  display: none;
+}
+
+.chip-checkbox span {
+  display: inline-block;
+  padding: 8px 14px;
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.chip-checkbox input:checked + span {
+  background-color: #ffe4e6;
+  color: #e11d48;
   border-color: #f43f5e;
 }
 
@@ -147,7 +192,7 @@ h1 em, h2 em {
   border: 1px dashed #fca5a5;
   border-radius: 16px;
   padding: 16px;
-  margin: 20px 0;
+  margin: 16px 0;
   text-align: left;
 }
 
@@ -156,6 +201,7 @@ h1 em, h2 em {
   justify-content: space-between;
   padding: 8px 0;
   border-bottom: 1px solid #ffe4e6;
+  gap: 12px;
 }
 
 .summary-item:last-child {
@@ -164,13 +210,24 @@ h1 em, h2 em {
 
 .summary-item dt {
   color: #6b7280;
-  font-size: 14px;
+  font-size: 13px;
+  flex-shrink: 0;
 }
 
 .summary-item dd {
   font-weight: 700;
   color: #9f1239;
-  font-size: 14px;
+  font-size: 13px;
+  text-align: right;
+  word-break: break-word;
+}
+
+.error-text {
+  color: #e11d48;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-align: center;
 }
 
 .footer-note {
