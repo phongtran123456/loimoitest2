@@ -9,15 +9,15 @@
 </head>
 <body>
   <main class="container">
-    <!-- BƯỚC 1: MỞ LỜI -->
+    <!-- BƯỚC 1: LỜI MỜI -->
     <section id="step-1" class="card active">
       <div class="tag">Một lời mời nho nhỏ 💌</div>
       <div class="envelope-icon">✨</div>
       <h1><span>Thi có muốn</span> <em>đi đâu với tui hog :3</em></h1>
-      <p class="subtitle">Để giải lao sau những giờ vui chơi căng thẳng 🥰</p>
+      <p class="subtitle">Để một ngày bình thường trở nên đáng nhớ hơn.</p>
       
       <div class="actions-area">
-        <button class="btn btn-primary" onclick="goToStep(2)">Đi luôn thôii! 💕</button>
+        <button class="btn btn-primary" id="btn-yes" onclick="goToStep(2)">Đi luôn thôii! 💕</button>
         <button class="btn btn-secondary" id="btn-no">Để suy nghĩ đã 🙈</button>
       </div>
       <p class="footer-note">Một cuộc hẹn, nhiều niềm vui.</p>
@@ -43,7 +43,7 @@
         </div>
 
         <div class="form-group">
-          <label>✨ Mình sẽ làm gì nè? (Có thể chọn nhiều option)</label>
+          <label>✨ Mình sẽ làm gì nè? (Chọn nhiều tùy thích)</label>
           <div class="checkbox-group">
             <label class="chip-checkbox">
               <input type="checkbox" name="activity" value="Ra thư viện 📚">
@@ -66,7 +66,7 @@
               <span>Đi ăn đồ ngon 🍕</span>
             </label>
             <label class="chip-checkbox">
-              <input type="checkbox" name="activity" value="Đi hóng gió 🛵">
+              <input type="checkbox" name="activity" value="Lượn phố hóng gió 🛵">
               <span>Lượn phố hóng gió 🛵</span>
             </label>
           </div>
