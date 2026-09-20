@@ -6,58 +6,46 @@ document.addEventListener('DOMContentLoaded', () => {
 // 1. TỰ ĐỘNG THIẾT LẬP NGÀY TỐI THIỂU LÀ NGÀY HIỆN TẠI
 function setupMinDateTime() {
   const dateInput = document.getElementById('date');
-  if (!dateInput) return;
-  
   const today = new Date();
+  
+  // Lấy chuỗi YYYY-MM-DD theo giờ địa phương
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, '0');
   const day = String(today.getDate()).padStart(2, '0');
   
   const minDate = `${year}-${month}-${day}`;
   dateInput.min = minDate;
-  dateInput.value = minDate;
+  dateInput.value = minDate; // Default là hôm nay
 }
 
-// 2. THUẬT TOÁN BỎ CHẠY AN TOÀN TRONG NỘI BỘ THẺ CARD
+// 2. XỬ LÝ NÚT "TỪ CHỐI" BỎ CHẠY AN TOÀN (KHÔNG TRÀN MÀN HÌNH & AN TOÀN TRÊN ĐIỆN THOẠI)
 function setupRunawayButton() {
   const btnNo = document.getElementById('btn-no');
-  const card = document.getElementById('step-1');
-
-  if (!btnNo || !card) return;
+  const container = document.querySelector('.card.active');
 
   function moveButton(e) {
     if (e) {
-      e.preventDefault();
+      e.preventDefault(); // Ngăn chặn sự kiện click ăn vào nút khác trên điện thoại
       e.stopPropagation();
     }
 
-    // Lấy kích thước thẻ Card trắng
-    const cardWidth = card.clientWidth;
-    const cardHeight = card.clientHeight;
+    const containerRect = container.getBoundingClientRect();
+    const btnRect = btnNo.getBoundingClientRect();
 
-    // Lấy kích thước nút
-    const btnWidth = btnNo.offsetWidth || 130;
-    const btnHeight = btnNo.offsetHeight || 44;
+    // Giới hạn phạm vi di chuyển chỉ trong lòng thẻ Card
+    const padding = 20;
+    const maxX = containerRect.width - btnRect.width - padding;
+    const maxY = containerRect.height - btnRect.height - padding;
 
-    // Vùng đệm cách mép thẻ Card
-    const padding = 16;
+    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
 
-    // Tính khoảng tọa độ tối đa cho phép
-    const maxX = cardWidth - btnWidth - padding;
-    const maxY = cardHeight - btnHeight - padding;
-
-    // Tính vị trí ngẫu nhiên
-    const randomX = Math.max(padding, Math.floor(Math.random() * (maxX - padding + 1)) + padding);
-    const randomY = Math.max(padding, Math.floor(Math.random() * (maxY - padding + 1)) + padding);
-
-    // Gán vị trí mới tính theo khung #step-1
     btnNo.style.position = 'absolute';
     btnNo.style.left = `${randomX}px`;
     btnNo.style.top = `${randomY}px`;
-    btnNo.style.right = 'auto'; // Hủy vị trí right ban đầu
   }
 
-  // Bắt sự kiện trên máy tính (mouseover) và điện thoại (touchstart, click)
+  // Bắt sự kiện rê chuột (Máy tính) và Chạm màn hình (Điện thoại)
   btnNo.addEventListener('mouseover', moveButton);
   btnNo.addEventListener('touchstart', moveButton, { passive: false });
   btnNo.addEventListener('click', (e) => {
@@ -68,11 +56,11 @@ function setupRunawayButton() {
 
 // 3. CHUYỂN BƯỚC
 function goToStep(stepNumber) {
-  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
   document.getElementById(`step-${stepNumber}`).classList.add('active');
 }
 
-// 4. KIỂM TRA VÀ XỬ LÝ LỊCH HẸN
+// 4. XỬ LÝ KIỂM TRA & GỬI FORM LỊCH HẸN
 function handleFormSubmit(event) {
   event.preventDefault();
 
@@ -83,6 +71,7 @@ function handleFormSubmit(event) {
   const timeVal = document.getElementById('time').value;
   const otherVal = document.getElementById('other-activity').value.trim();
 
+  // Lấy danh sách các checkbox đã chọn
   const selectedCheckboxes = document.querySelectorAll('input[name="activity"]:checked');
   let activities = Array.from(selectedCheckboxes).map(cb => cb.value);
 
@@ -90,11 +79,13 @@ function handleFormSubmit(event) {
     activities.push(otherVal);
   }
 
+  // Kiểm tra nếu chưa chọn hoạt động nào
   if (activities.length === 0) {
     errorMsg.innerText = 'Thi chọn ít nhất 1 hoạt động hoặc tự nhập thêm nha! 😊';
     return;
   }
 
+  // XÁC THỰC THỜI GIAN THỰC
   const now = new Date();
   const selectedDateTime = new Date(`${dateVal}T${timeVal}`);
 
@@ -108,6 +99,7 @@ function handleFormSubmit(event) {
     return;
   }
 
+  // ĐỊNH DẠNG NGÀY THÁNG VIỆT NAM
   const formattedDate = selectedDateTime.toLocaleDateString('vi-VN', {
     weekday: 'long',
     day: '2-digit',
@@ -115,6 +107,7 @@ function handleFormSubmit(event) {
     year: 'numeric'
   });
 
+  // ĐIỀN DỮ LIỆU SANG BƯỚC 3
   document.getElementById('res-date').innerText = formattedDate;
   document.getElementById('res-time').innerText = timeVal;
   document.getElementById('res-activity').innerText = activities.join(', ');
