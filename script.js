@@ -1,66 +1,88 @@
+// Biến đếm số lần bấm nút "Từ chối"
+let noButtonClickCount = 0;
+
 document.addEventListener('DOMContentLoaded', () => {
   setupMinDateTime();
-  setupRunawayButton();
+  setupPhongOptionHandler();
 });
 
-// 1. TỰ ĐỘNG THIẾT LẬP NGÀY TỐI THIỂU LÀ NGÀY HIỆN TẠI
+// 1. TỰ ĐỘNG KHÓA NGÀY TỐI THIỂU LÀ NGÀY HIỆN TẠI
 function setupMinDateTime() {
   const dateInput = document.getElementById('date');
-  const today = new Date();
+  if (!dateInput) return;
   
-  // Lấy chuỗi YYYY-MM-DD theo giờ địa phương
+  const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, '0');
   const day = String(today.getDate()).padStart(2, '0');
   
   const minDate = `${year}-${month}-${day}`;
   dateInput.min = minDate;
-  dateInput.value = minDate; // Default là hôm nay
+  dateInput.value = minDate;
 }
 
-// 2. XỬ LÝ NÚT "TỪ CHỐI" BỎ CHẠY AN TOÀN (KHÔNG TRÀN MÀN HÌNH & AN TOÀN TRÊN ĐIỆN THOẠI)
-function setupRunawayButton() {
-  const btnNo = document.getElementById('btn-no');
-  const container = document.querySelector('.card.active');
+// 2. TÍNH NĂNG TROLL 5S DÀNH CHO NÚT "PHONG TỰ CHỌN ĐI"
+function setupPhongOptionHandler() {
+  const phongInput = document.getElementById('input-phong-option');
+  const phongSpan = document.getElementById('span-phong-option');
 
-  function moveButton(e) {
-    if (e) {
-      e.preventDefault(); // Ngăn chặn sự kiện click ăn vào nút khác trên điện thoại
-      e.stopPropagation();
+  if (!phongInput || !phongSpan) return;
+
+  phongInput.addEventListener('change', () => {
+    if (phongInput.checked) {
+      // Khi bấm chọn: hiện câu chọc ghẹo ngay lập tức
+      phongSpan.innerText = "Để chơi cho vui mà cũng chọn hả 😜";
+      phongInput.value = "Thi sẽ tự chọn 😜";
+
+      // Đợi đúng 5 giây (5000ms) đổi thành câu chốt
+      setTimeout(() => {
+        if (phongInput.checked) {
+          phongSpan.innerText = "Thi sẽ tự chọn 🥰";
+          phongInput.value = "Thi sẽ tự chọn 🥰";
+        }
+      }, 5000);
+    } else {
+      // Khi bỏ chọn: trả lại tên ban đầu
+      phongSpan.innerText = "Phong tự chọn đi 🎲";
+      phongInput.value = "Phong tự chọn đi 🎲";
     }
-
-    const containerRect = container.getBoundingClientRect();
-    const btnRect = btnNo.getBoundingClientRect();
-
-    // Giới hạn phạm vi di chuyển chỉ trong lòng thẻ Card
-    const padding = 20;
-    const maxX = containerRect.width - btnRect.width - padding;
-    const maxY = containerRect.height - btnRect.height - padding;
-
-    const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
-    const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
-
-    btnNo.style.position = 'absolute';
-    btnNo.style.left = `${randomX}px`;
-    btnNo.style.top = `${randomY}px`;
-  }
-
-  // Bắt sự kiện rê chuột (Máy tính) và Chạm màn hình (Điện thoại)
-  btnNo.addEventListener('mouseover', moveButton);
-  btnNo.addEventListener('touchstart', moveButton, { passive: false });
-  btnNo.addEventListener('click', (e) => {
-    e.preventDefault();
-    moveButton(e);
   });
 }
 
-// 3. CHUYỂN BƯỚC
+// 3. XỬ LÝ CHUỖI SỰ KIỆN 3 LẦN BẤM NÚT "TỪ CHỐI"
+function handleNoButtonClick() {
+  const btnNo = document.getElementById('btn-no');
+  if (!btnNo) return;
+
+  noButtonClickCount++;
+
+  if (noButtonClickCount === 1) {
+    // Lần 1: Đổi chữ, khung vẫn xám
+    btnNo.innerText = "Sai roài chọn lại đuy";
+  } 
+  else if (noButtonClickCount === 2) {
+    // Lần 2: Đổi chữ, khung vẫn xám
+    btnNo.innerText = "Tui bảo chọn lại mà tr ?? Trẻ hư hả ?";
+  } 
+  else if (noButtonClickCount === 3) {
+    // Lần 3: Đổi chữ + Biến thành màu đỏ hồng + Tạo hiệu ứng rung
+    btnNo.innerText = "PHẢI CÓ, tưởng mình được chọn hả 😾";
+    btnNo.classList.remove('btn-secondary');
+    btnNo.classList.add('btn-converted');
+  } 
+  else {
+    // Lần 4 trở đi: Chuyển sang Bước 2
+    goToStep(2);
+  }
+}
+
+// 4. CHUYỂN BƯỚC
 function goToStep(stepNumber) {
-  document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
   document.getElementById(`step-${stepNumber}`).classList.add('active');
 }
 
-// 4. XỬ LÝ KIỂM TRA & GỬI FORM LỊCH HẸN
+// 5. KIỂM TRA & XỬ LÝ LỊCH HẸN
 function handleFormSubmit(event) {
   event.preventDefault();
 
@@ -71,7 +93,6 @@ function handleFormSubmit(event) {
   const timeVal = document.getElementById('time').value;
   const otherVal = document.getElementById('other-activity').value.trim();
 
-  // Lấy danh sách các checkbox đã chọn
   const selectedCheckboxes = document.querySelectorAll('input[name="activity"]:checked');
   let activities = Array.from(selectedCheckboxes).map(cb => cb.value);
 
@@ -79,13 +100,11 @@ function handleFormSubmit(event) {
     activities.push(otherVal);
   }
 
-  // Kiểm tra nếu chưa chọn hoạt động nào
   if (activities.length === 0) {
-    errorMsg.innerText = 'Thi chọn ít nhất 1 hoạt động hoặc tự nhập thêm nha! 😊';
+    errorMsg.innerText = 'Hong thèm chọn hoạt động luôn hả tr, bộ tính ra nhìn mặt nhao thôi hả ?? 😒';
     return;
   }
 
-  // XÁC THỰC THỜI GIAN THỰC
   const now = new Date();
   const selectedDateTime = new Date(`${dateVal}T${timeVal}`);
 
@@ -95,11 +114,10 @@ function handleFormSubmit(event) {
   }
 
   if (selectedDateTime < now) {
-    errorMsg.innerText = 'Thi ơi, không thể du hành về quá khứ chọn giờ đã qua được nè! 😁';
+    errorMsg.innerText = 'Cô bé này tính hẹn nhau ở quá khứ hay gì zậy ta ?';
     return;
   }
 
-  // ĐỊNH DẠNG NGÀY THÁNG VIỆT NAM
   const formattedDate = selectedDateTime.toLocaleDateString('vi-VN', {
     weekday: 'long',
     day: '2-digit',
@@ -107,7 +125,6 @@ function handleFormSubmit(event) {
     year: 'numeric'
   });
 
-  // ĐIỀN DỮ LIỆU SANG BƯỚC 3
   document.getElementById('res-date').innerText = formattedDate;
   document.getElementById('res-time').innerText = timeVal;
   document.getElementById('res-activity').innerText = activities.join(', ');
