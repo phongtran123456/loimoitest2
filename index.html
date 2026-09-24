@@ -9,18 +9,18 @@
 </head>
 <body>
   <main class="container">
-    <!-- BƯỚC 1: MỞ LỜI -->
+    <!-- BƯỚC 1: LỜI MỜI -->
     <section id="step-1" class="card active">
       <div class="tag">Một lời mời nho nhỏ 💌</div>
       <div class="envelope-icon">✨</div>
       <h1><span>Thi có muốn</span> <em>đi đâu với tui hog :3</em></h1>
-      <p class="subtitle">Để chúng ta giải lao sau những giờ vui chơi căng thẳng 🥰</p>
+      <p class="subtitle">Để giải lao sau những ngày tháng mệc mỏi</p>
       
       <div class="actions-area">
-        <button class="btn btn-primary" onclick="goToStep(2)">Đi luông điii! 😋</button>
-        <button class="btn btn-secondary" id="btn-no">Để s-sy nghĩ đã 🙈</button>
+        <button class="btn btn-primary" id="btn-yes" onclick="goToStep(2)">Đi luông thoaiii! 😋</button>
+        <button class="btn btn-secondary" id="btn-no" onclick="handleNoButtonClick()">Để s-sy nghĩ đã 🙈</button>
       </div>
-      <p class="footer-note">Một cuộc hẹn dui dẻ</p>
+      <p class="footer-note">Dạo này có mệc khum, cố lên nhé 🥺</p>
     </section>
 
     <!-- BƯỚC 2: CHỌN LỊCH HẸN & HOẠT ĐỘNG -->
@@ -28,8 +28,8 @@
       <div class="header-step">
         <span class="tag">Bước 2 trên 3</span>
       </div>
-      <h2><span>Vậy mình</span> <em>hẹn nhau nhé.</em></h2>
-      <p class="subtitle">Thi chọn thời gian & những việc mình sẽ làm cùng nhau nha!</p>
+      <h2><span>Vậy thì</span> <em>đi đâu giờ 🤔</em></h2>
+      <p class="subtitle">Thi chọn thời gian & những việc mình sẽ làm nhaa!</p>
 
       <form id="invite-form" onsubmit="handleFormSubmit(event)">
         <div class="form-group">
@@ -43,19 +43,25 @@
         </div>
 
         <div class="form-group">
-          <label>✨ Mình sẽ làm gì nè? (Có thể chọn nhiều option)</label>
+          <label>✨ Mình sẽ làm gì nè? (Chọn nhiều tùy thích)</label>
           <div class="checkbox-group">
+            <!-- Nút Phong tự chọn đi (Tính năng troll 5s) -->
             <label class="chip-checkbox">
-              <input type="checkbox" name="activity" value="Ra thư viện 📚">
-              <span>Ra thư viện 📚</span>
+              <input type="checkbox" name="activity" id="input-phong-option" value="Phong tự chọn đi 🎲">
+              <span id="span-phong-option">Phong tự chọn đi 🎲</span>
+            </label>
+
+            <label class="chip-checkbox">
+              <input type="checkbox" name="activity" value="Ra thư viện, học bài 📚">
+              <span>Ra thư viện, học bài 📚</span>
             </label>
             <label class="chip-checkbox">
               <input type="checkbox" name="activity" value="Uống cà phê ☕">
               <span>Uống cà phê ☕</span>
             </label>
             <label class="chip-checkbox">
-              <input type="checkbox" name="activity" value="Cùng học bài 📖">
-              <span>Cùng học bài 📖</span>
+              <input type="checkbox" name="activity" value="Đi ra net coi phim hàn 🖥️">
+              <span>Đi ra net coi phim hàn 🖥️</span>
             </label>
             <label class="chip-checkbox">
               <input type="checkbox" name="activity" value="Đi xem phim 🎬">
@@ -66,8 +72,8 @@
               <span>Đi ăn đồ ngon 🍕</span>
             </label>
             <label class="chip-checkbox">
-              <input type="checkbox" name="activity" value="Đi hóng gió 🛵">
-              <span>Lượn phố hóng gió 🛵</span>
+              <input type="checkbox" name="activity" value="Đi coi chiikawa típ 🤡">
+              <span>Đi coi chiikawa típ 🤡</span>
             </label>
           </div>
         </div>
@@ -90,7 +96,7 @@
       </div>
       <div class="envelope-icon">🥳</div>
       <h2><span>Có hẹn rồi,</span> <em>vui quá!</em></h2>
-      <p class="subtitle">Thế là có ngày ăn chơi roài 🤡</p>
+      <p class="subtitle">Vậy là có ngày ăn chs roài yeee</p>
 
       <dl class="summary-box">
         <div class="summary-item">
@@ -107,10 +113,10 @@
         </div>
       </dl>
 
-      <p class="footer-note">Do tui lowtech nên chụp màn hình lại rồi gửi tui nhóe :3</p>
+      <p class="footer-note">Tại tui lowtech nên chụp lại màn hình gửi tui nha hihi 📸</p>
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=3"></script>
 </body>
 </html>
