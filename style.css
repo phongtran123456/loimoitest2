@@ -14,13 +14,11 @@ body {
   justify-content: center;
   padding: 16px;
   color: #4a4a4a;
-  overflow-x: hidden;
 }
 
 .container {
   width: 100%;
   max-width: 440px;
-  position: relative;
 }
 
 .card {
@@ -31,7 +29,6 @@ body {
   text-align: center;
   display: none;
   animation: fadeIn 0.3s ease-in-out;
-  position: relative;
 }
 
 .card.active {
@@ -79,15 +76,19 @@ h1 em, h2 em {
   margin-bottom: 20px;
 }
 
-/* KHU VỰC CHỨA 2 NÚT DÀNH CHO BƯỚC 1 */
 .actions-area {
-  position: relative;
-  min-height: 120px;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
   gap: 12px;
-  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+@media (min-width: 380px) {
+  .actions-area {
+    flex-direction: row;
+  }
 }
 
 .btn {
@@ -98,23 +99,44 @@ h1 em, h2 em {
   font-weight: 700;
   font-size: 15px;
   cursor: pointer;
-  transition: transform 0.1s ease;
   user-select: none;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+  width: 100%;
+}
+
+@media (min-width: 380px) {
+  .btn {
+    width: auto;
+  }
 }
 
 .btn-primary {
   background-color: #f43f5e;
   color: white;
   box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);
-  z-index: 2;
+}
+
+.btn-primary:active {
+  transform: scale(0.96);
 }
 
 .btn-secondary {
   background-color: #f3f4f6;
   color: #4b5563;
-  z-index: 10;
-  position: relative;
-  transition: all 0.15s ease-out;
+}
+
+/* KHI BIẾN THÀNH MÀU ĐỎ HỒNG Ở LẦN BẤM THỨ 3 */
+.btn-converted {
+  background-color: #f43f5e !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3) !important;
+  animation: shake 0.35s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
 }
 
 .btn-block {
@@ -154,7 +176,6 @@ h1 em, h2 em {
   background-color: #fff;
 }
 
-/* CHECKBOX PHONG CÁCH NÚT CHIP */
 .checkbox-group {
   display: flex;
   flex-wrap: wrap;
